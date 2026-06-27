@@ -2,8 +2,14 @@
 // Story generation uses claude-haiku-4-5-20251001 (fast + cost-effective for stories)
 // Image generation uses a placeholder - integrate DALL-E, Stable Diffusion, or similar
 
+import { Platform } from 'react-native';
+
 const ANTHROPIC_API_KEY = process.env.EXPO_PUBLIC_ANTHROPIC_API_KEY || 'YOUR_ANTHROPIC_API_KEY_HERE';
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
+
+// The Anthropic API blocks browser-side fetch due to CORS — use placeholder on web preview.
+// On iOS/Android the same fetch works fine with no CORS restrictions.
+const IS_WEB = Platform.OS === 'web';
 
 // Word counts per story length
 const STORY_LENGTHS = {
@@ -18,8 +24,8 @@ const STORY_LENGTHS = {
  */
 export async function generateStory(genre, length) {
   // --- PLACEHOLDER MODE ---
-  // Remove the block below (or replace the key constant above) once you have a real API key
-  const isPlaceholder = !ANTHROPIC_API_KEY || ANTHROPIC_API_KEY === 'YOUR_ANTHROPIC_API_KEY_HERE' || !ANTHROPIC_API_KEY.startsWith('sk-ant-');
+  // Also active on web (CORS blocks browser-side Anthropic calls; use a backend proxy for web prod)
+  const isPlaceholder = IS_WEB || !ANTHROPIC_API_KEY || ANTHROPIC_API_KEY === 'YOUR_ANTHROPIC_API_KEY_HERE' || !ANTHROPIC_API_KEY.startsWith('sk-ant-');
   if (isPlaceholder) {
     await new Promise(r => setTimeout(r, 1800)); // simulate network delay
     return getPlaceholderStory(genre, length);
