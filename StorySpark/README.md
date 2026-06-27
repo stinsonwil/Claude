@@ -43,17 +43,21 @@ npm install
 
 ### 1. Anthropic API Key (story generation)
 
-Open `src/services/aiService.js` and replace the placeholder at the top:
+Copy `.env.example` to `.env` and fill in your key:
 
-```js
-// Before
-const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE';
+```bash
+cp .env.example .env
+```
 
-// After — replace with your actual key
-const ANTHROPIC_API_KEY = 'sk-ant-api03-...';
+Then edit `.env`:
+
+```
+EXPO_PUBLIC_ANTHROPIC_API_KEY=sk-ant-api03-...
 ```
 
 Get a free API key at **[console.anthropic.com](https://console.anthropic.com)**.
+
+> `.env` is gitignored — your key never leaves your machine.
 
 > **No key? No problem.** The app runs in **placeholder mode** when the key is missing or invalid — you'll see sample stories and can explore the full UI immediately.
 

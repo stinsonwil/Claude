@@ -10,3 +10,7 @@ web-build/
 *.mobileprovision
 *.orig.*
 web-build/
+
+# Local env — never commit
+.env
+.env.local
