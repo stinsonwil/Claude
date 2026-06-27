@@ -1,9 +1,7 @@
-// AI Service - Replace ANTHROPIC_API_KEY with your actual key
-// Story generation uses claude-haiku-4-5-20251001 (fast + cost-effective for stories)
-// Image generation uses a placeholder - integrate DALL-E, Stable Diffusion, or similar
-
-// Replace this with your actual Anthropic API key from console.anthropic.com
-const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE';
+// AI Service — story generation via Claude, illustration via placeholder.
+// API key is loaded from src/config/secrets.js (gitignored).
+// Copy src/config/secrets.example.js → src/config/secrets.js and add your key.
+import { ANTHROPIC_API_KEY } from '../config/secrets';
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
 
 // Word counts per story length
@@ -46,7 +44,7 @@ Begin:`;
       'anthropic-version': '2023-06-01',
     },
     body: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
+      model: 'claude-sonnet-4-6',
       max_tokens: 2048,
       messages: [{ role: 'user', content: prompt }],
     }),
