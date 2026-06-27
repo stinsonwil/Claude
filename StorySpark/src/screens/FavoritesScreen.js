@@ -35,9 +35,10 @@ export default function FavoritesScreen({ navigation, theme }) {
   }, []);
 
   const handleOpen = useCallback((story) => {
+    // Navigate into the HomeTab stack to show the StoryScreen
     navigation.navigate('HomeTab', {
       screen: 'Story',
-      params: { story, illustrationPromise: null },
+      params: { story },
     });
   }, [navigation]);
 

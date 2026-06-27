@@ -1,97 +1,135 @@
 # StorySpark
 
-A cross-platform mobile storytelling app that generates unique AI stories based on your preferences. Built with React Native + Expo.
+A cross-platform mobile storytelling app that generates unique AI stories based on your preferences. Built with **React Native + Expo**.
 
 ## Features
 
-- **AI Story Generation** — Fantasy, Horror, Mystery, Adventure, Sci-Fi, Romance, Comedy, or Custom genres
-- **AI Illustrations** — Each story includes a matching illustration
-- **Text-to-Speech** — Listen to stories with the device's built-in TTS engine
-- **Favorites** — Save and revisit stories locally (AsyncStorage)
-- **Dark Mode** — Full light and dark theme support
-- **Short / Medium / Long** story lengths (~300 / ~700 / ~1500 words)
+| Feature | Details |
+|---|---|
+| AI Story Generation | Fantasy, Horror, Mystery, Adventure, Sci-Fi, Romance, Comedy, or Custom |
+| Story Lengths | Short (~300 words), Medium (~700 words), Long (~1500 words) |
+| AI Illustrations | Matching placeholder image per genre; plug in DALL-E or Stable Diffusion for real art |
+| Text-to-Speech | Device TTS via `expo-speech` — play, pause, stop |
+| Favorites | Save/unsave stories locally with AsyncStorage |
+| Dark Mode | Full light and dark theme that follows the device setting |
+| Responsive | Works on phones of all sizes, tablets, and Expo Web |
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) 18+
-- [Expo Go](https://expo.dev/client) on your phone, or an iOS Simulator / Android Emulator
+- **Node.js** 18+
+- **npm** 9+ (included with Node)
+- [**Expo Go**](https://expo.dev/client) app on your phone **or** an iOS Simulator / Android Emulator
 
-## Installation
+## Quick Start
 
 ```bash
+# 1. Clone and install
 git clone <repo-url>
 cd StorySpark
 npm install
+
+# 2. Add your API key (see Configuration below)
+
+# 3. Start the development server
+npx expo start
 ```
+
+Scan the QR code with **Expo Go** (Android) or the **Camera app** (iOS) to run the app instantly on your device.
 
 ## Configuration
 
-### Anthropic API Key (story generation)
+### Anthropic API Key — Story Generation
 
 Open `src/services/aiService.js` and replace the placeholder:
 
 ```js
-const ANTHROPIC_API_KEY = 'sk-ant-...your-key-here...';
+// Before
+const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE';
+
+// After
+const ANTHROPIC_API_KEY = 'sk-ant-api03-...';
 ```
 
-Get a key at [console.anthropic.com](https://console.anthropic.com). The app runs in **placeholder mode** without a key so you can explore the UI immediately.
+Get a key at [console.anthropic.com](https://console.anthropic.com).
 
-### Image Generation API (illustrations)
+> **Without a key** the app runs in placeholder mode — it shows sample stories so you can explore the full UI immediately.
 
-The `generateIllustration` function in `src/services/aiService.js` currently returns placeholder images from placehold.co. To enable real AI illustrations, replace that function with a call to:
+### Image Generation API — Illustrations (Optional)
 
-- **DALL-E 3** (OpenAI) — `https://api.openai.com/v1/images/generations`
-- **Stable Diffusion** (stability.ai) — `https://api.stability.ai/v1/generation/...`
+`generateIllustration()` in `src/services/aiService.js` currently returns colored placeholder images. To enable real AI art, replace that function body with a call to one of:
 
-The function must return a `Promise<string>` that resolves to an image URI.
+| Provider | Endpoint |
+|---|---|
+| DALL-E 3 (OpenAI) | `https://api.openai.com/v1/images/generations` |
+| Stable Diffusion (Stability AI) | `https://api.stability.ai/v1/generation/...` |
+| Ideogram / Replicate | See their respective docs |
 
-## Running the App
+The function must return a `Promise<string>` resolving to a publicly accessible image URL.
+
+## Running on Different Targets
 
 ```bash
-npx expo start
+npx expo start        # Interactive menu — scan QR for device
+npx expo start --ios  # Open in iOS Simulator (requires Xcode on macOS)
+npx expo start --android  # Open in Android Emulator (requires Android Studio)
+npx expo start --web  # Open in browser (limited TTS support)
 ```
-
-- **Physical device** — scan the QR code with Expo Go (iOS or Android)
-- **iOS Simulator** — press `i` in the terminal (requires Xcode on macOS)
-- **Android Emulator** — press `a` in the terminal (requires Android Studio)
 
 ## Project Structure
 
 ```
 StorySpark/
-├── App.js                      # Root component, theme provider
-├── app.json                    # Expo config
+├── App.js                         # Root component; reads device color scheme
+├── app.json                       # Expo config (name, slug, bundle IDs)
 ├── package.json
 └── src/
     ├── screens/
-    │   ├── HomeScreen.js       # Genre/length selectors + Generate button
-    │   ├── StoryScreen.js      # Story reading view with TTS and favorites
-    │   └── FavoritesScreen.js  # Saved stories list
+    │   ├── HomeScreen.js          # Genre/length pickers + Generate button
+    │   ├── StoryScreen.js         # Reading view with TTS, favorites, illustration
+    │   └── FavoritesScreen.js     # Saved stories list with delete
     ├── components/
-    │   ├── GenreDropdown.js    # Modal genre picker with icons
-    │   ├── LengthDropdown.js   # Modal length picker with descriptions
-    │   ├── StoryCard.js        # Reusable card for favorites list
-    │   ├── LoadingAnimation.js # Three-dot bounce animation
-    │   └── IllustrationPlaceholder.js  # Image with loading state
+    │   ├── GenreDropdown.js       # Modal genre picker with genre icons
+    │   ├── LengthDropdown.js      # Modal length picker with word counts
+    │   ├── StoryCard.js           # Reusable card used in Favorites list
+    │   ├── LoadingAnimation.js    # Three-dot bounce animation
+    │   └── IllustrationPlaceholder.js  # Image with loading + error states
     ├── services/
-    │   ├── aiService.js        # Claude API + illustration API calls
-    │   └── storageService.js   # AsyncStorage CRUD for favorites
+    │   ├── aiService.js           # Claude API calls + illustration stub
+    │   └── storageService.js      # AsyncStorage CRUD for favorites
     ├── hooks/
-    │   └── useTTS.js           # expo-speech play/pause/stop hook
+    │   └── useTTS.js              # expo-speech play / pause / stop hook
     ├── theme/
-    │   └── index.js            # Light and dark color palettes
+    │   └── index.js               # Light and dark color palettes
     └── navigation/
-        └── AppNavigator.js     # Bottom tabs + stack navigator
+        └── AppNavigator.js        # Bottom tabs (Home, Favorites) + Home stack
 ```
 
 ## Tech Stack
 
-| Layer | Library |
+| Layer | Library | Version |
+|---|---|---|
+| Framework | React Native + Expo | ~51 |
+| Navigation | React Navigation | 6.x |
+| Text-to-Speech | expo-speech | ~12 |
+| Local Storage | @react-native-async-storage/async-storage | 1.23 |
+| Icons | @expo/vector-icons (Ionicons) | 14 |
+| Animations | react-native-reanimated | ~3.10 |
+| Gradients | expo-linear-gradient | ~13 |
+| AI Stories | Anthropic Claude API | claude-haiku-4-5-20251001 |
+
+## How It Works
+
+1. User picks a **genre** and **length** on the Home screen.
+2. Tapping **Generate Story** calls the Anthropic API (or returns a placeholder).
+3. The app navigates to **StoryScreen** and simultaneously fetches an illustration.
+4. Users can **listen** (TTS), **save** (heart icon), or go back and generate another.
+5. Saved stories live in the **Favorites** tab and can be re-opened or deleted.
+
+## Troubleshooting
+
+| Problem | Fix |
 |---|---|
-| Framework | React Native + Expo ~51 |
-| Navigation | React Navigation 6 (bottom tabs + stack) |
-| Text-to-Speech | expo-speech |
-| Local Storage | @react-native-async-storage/async-storage |
-| Icons | @expo/vector-icons (Ionicons) |
-| Animations | react-native-reanimated |
-| AI Stories | Anthropic Claude API (claude-haiku-4-5) |
+| "API error 401" | Check your `ANTHROPIC_API_KEY` value in `aiService.js` |
+| Illustration not loading | The placehold.co service requires internet access; check your connection |
+| TTS not working | TTS is device-dependent; not supported in all Expo Web browsers |
+| Metro bundler cache | Run `npx expo start --clear` to reset the cache |

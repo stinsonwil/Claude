@@ -2,7 +2,8 @@
 // Story generation uses claude-haiku-4-5-20251001 (fast + cost-effective for stories)
 // Image generation uses a placeholder - integrate DALL-E, Stable Diffusion, or similar
 
-const ANTHROPIC_API_KEY = 'sk-ant-...your-new-key...';
+// Replace this with your actual Anthropic API key from console.anthropic.com
+const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE';
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
 
 // Word counts per story length

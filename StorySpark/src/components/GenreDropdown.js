@@ -6,7 +6,7 @@ const GENRES = ['Fantasy', 'Horror', 'Mystery', 'Adventure', 'Sci-Fi', 'Romance'
 
 const GENRE_ICONS = {
   Fantasy: 'sparkles',
-  Horror: 'skull',
+  Horror: 'moon',
   Mystery: 'search',
   Adventure: 'compass',
   'Sci-Fi': 'planet',

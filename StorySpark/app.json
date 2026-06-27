@@ -4,24 +4,14 @@
     "slug": "storyspark",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "resizeMode": "contain",
-      "backgroundColor": "#6C3DF4"
-    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.storyspark.app"
     },
     "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#6C3DF4"
-      },
       "package": "com.storyspark.app"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+    "web": {}
   }
 }

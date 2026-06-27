@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 const GENRE_ICONS = {
-  Fantasy: 'sparkles', Horror: 'skull', Mystery: 'search',
+  Fantasy: 'sparkles', Horror: 'moon', Mystery: 'search',
   Adventure: 'compass', 'Sci-Fi': 'planet', Romance: 'heart',
   Comedy: 'happy', Custom: 'create',
 };

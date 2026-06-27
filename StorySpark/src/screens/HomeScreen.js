@@ -20,9 +20,8 @@ export default function HomeScreen({ navigation, theme }) {
     setLoading(true);
     try {
       const result = await generateStory(genre, length);
-      // Start illustration generation in parallel (don't block navigation)
-      const illustrationPromise = generateIllustration(result.title, result.genre);
-      navigation.navigate('Story', { story: result, illustrationPromise });
+      // Pass only serializable data — StoryScreen handles illustration fetch
+      navigation.navigate('Story', { story: result });
     } catch (err) {
       Alert.alert('Story Generation Failed', err.message || 'Something went wrong. Please try again.');
     } finally {
