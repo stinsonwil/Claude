@@ -2,7 +2,7 @@
 // Story generation uses claude-haiku-4-5-20251001 (fast + cost-effective for stories)
 // Image generation uses a placeholder - integrate DALL-E, Stable Diffusion, or similar
 
-const ANTHROPIC_API_KEY = 'sk-ant-...your-new-key...';
+const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE';
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
 
 // Word counts per story length
@@ -18,8 +18,9 @@ const STORY_LENGTHS = {
  */
 export async function generateStory(genre, length) {
   // --- PLACEHOLDER MODE ---
-  // Remove the block below once you add a real API key
-  if (ANTHROPIC_API_KEY === 'YOUR_ANTHROPIC_API_KEY_HERE') {
+  // Remove the block below (or replace the key constant above) once you have a real API key
+  const isPlaceholder = !ANTHROPIC_API_KEY || ANTHROPIC_API_KEY === 'YOUR_ANTHROPIC_API_KEY_HERE' || !ANTHROPIC_API_KEY.startsWith('sk-ant-');
+  if (isPlaceholder) {
     await new Promise(r => setTimeout(r, 1800)); // simulate network delay
     return getPlaceholderStory(genre, length);
   }
@@ -77,7 +78,8 @@ Begin:`;
  */
 export async function generateIllustration(title, genre) {
   // --- PLACEHOLDER ---
-  // Return a deterministic placeholder based on genre
+  // Replace this function body with a real image generation API call (DALL-E 3, Stability AI, etc.)
+  // The function must return a Promise<string> resolving to an image URI.
   await new Promise(r => setTimeout(r, 1200));
   const colors = {
     Fantasy: '6C3DF4/EDE9FE',
@@ -111,7 +113,7 @@ function getPlaceholderStory(genre, length) {
 
 Once upon a time in a world not so different from our own, something extraordinary began — the kind of thing that only happens once in a generation, if that.
 
-This is a placeholder story to show you how StorySpark looks in action. To generate real AI-powered stories, open src/services/aiService.js and replace YOUR_ANTHROPIC_API_KEY_HERE with your actual Anthropic API key.
+This is a placeholder story to show you how StorySpark looks in action. To generate real AI-powered stories, open src/services/aiService.js and replace the ANTHROPIC_API_KEY constant at the top with your actual Anthropic API key (get one free at console.anthropic.com).
 
 The characters in this story were vibrant and full of life. The protagonist — let's call her Elena — had spent years searching for something she couldn't name. It wasn't until the ${genre.toLowerCase()} elements of her world began to shift and blur that she realized the search had always been for herself.
 
