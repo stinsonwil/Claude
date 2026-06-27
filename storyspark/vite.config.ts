@@ -16,5 +16,18 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    proxy: {
+      '/api/anthropic': {
+        target: 'https://api.anthropic.com',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api\/anthropic/, ''),
+        headers: { 'anthropic-dangerous-direct-browser-ipc': 'true' },
+      },
+      '/api/openai': {
+        target: 'https://api.openai.com',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api\/openai/, ''),
+      },
+    },
   },
 })

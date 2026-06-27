@@ -4,6 +4,7 @@
   "description": "AI-powered storytelling desktop app",
   "main": "dist-electron/main/main.js",
   "scripts": {
+    "web": "vite",
     "dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && electron .\"",
     "build": "tsc -p tsconfig.node.json && vite build && electron-builder",
     "build:win": "tsc -p tsconfig.node.json && vite build && electron-builder --win",
