@@ -1,0 +1,23 @@
+appId: com.storyspark.app
+productName: StorySpark
+directories:
+  output: release
+files:
+  - dist/**/*
+  - dist-electron/**/*
+  - node_modules/**/*
+  - package.json
+extraResources:
+  - from: node_modules/better-sqlite3/build
+    to: better-sqlite3/build
+mac:
+  category: public.app-category.entertainment
+  icon: public/icon.icns
+win:
+  icon: public/icon.ico
+linux:
+  category: Office
+  icon: public/icon.png
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
